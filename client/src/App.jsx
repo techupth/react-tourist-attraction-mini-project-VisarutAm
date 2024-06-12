@@ -7,40 +7,59 @@ function App() {
   const [findTrip, setFindtrip] = useState("");
 
   const getTrips = async () => {
-    try {
-      if (findTrip !== "") {
-        const result = await axios.get(
-          `http://localhost:4001/trips?keywords=${findTrip}`
-        );
-        console.log(result);
-        // setBook(result.data.items);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    const result = await axios.get(
+      `http://localhost:4001/trips?keywords=${findTrip}`
+    );
+    // console.log(result.data.data);
+    setTrip(result.data.data);
   };
 
   useEffect(() => {
     getTrips();
   }, [findTrip]);
 
-  // const Ttips = () => {
-  //   if (findTrip) {
-  //     return book.map((data, index) => (
-  //       <li key={index}>{data.volumeInfo.title}</li>
-  //     ));
-  //   } else {
-  //     return null;
-  //   }
-  // };
+  const Ttips = () => {
+    if (findTrip) {
+      return trip.map((data, index) => (
+        <div className="detail-card" key={index}>
+          <img src={data.photos[0]} />
+          <div className="description-tourist-attraction">
+            <h3>{data.title}</h3>
+            <p>
+              {data.description.length <= 100
+                ? data.description
+                : `${data.description.substring(0, 100)}...`}
+            </p>
+            <a href={data.url}>อ่านต่อ</a>
+            <p>หมวด : </p>
+          </div>
+        </div>
+      ));
+    } else {
+      return trip.map((data, index) => (
+        <div className="detail-card" key={index}>
+          <img src={data.photos[0]} />
+          <div className="description-tourist-attraction">
+            <h3>{data.title}</h3>
+            <p>
+              {data.description.length <= 100
+                ? data.description
+                : `${data.description.substring(0, 100)}...`}
+            </p>
+            <a href={data.url}>อ่านต่อ</a>
+            <p>หมวด : </p>
+          </div>
+        </div>
+      ));
+    }
+  };
+
   return (
     <div className="App">
       <h1>เที่ยวไหนดี</h1>
       <div>
-        <p>ค้นหาที่เที่ยว</p>
-
+        <p className="find-trips">ค้นหาที่เที่ยว</p>
         <section className="wrapper-detail">
-          {/* map ตรงนี้ */}
           <div className="find-tourist-attraction">
             <input
               type="text"
@@ -53,12 +72,7 @@ function App() {
 
             <hr />
           </div>
-          {/* <div>{Ttips()}</div> */}
-          <div className="detail-card">
-            <img className="image-tourist-attraction" src="" />
-            <div className="description-tourist-attraction"></div>
-          </div>
-          {/* หกดเ้่าส */}
+          <div>{Ttips()}</div>
         </section>
       </div>
     </div>
@@ -66,3 +80,17 @@ function App() {
 }
 
 export default App;
+
+// const getTrips = async () => {
+//   try {
+//     if (findTrip !== "") {
+//       const result = await axios.get(
+//         `http://localhost:4001/trips?keywords=${findTrip}`
+//       );
+//       console.log(result.data.data);
+//       setTrip(result.data.data);
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
