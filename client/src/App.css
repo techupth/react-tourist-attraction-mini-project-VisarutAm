@@ -50,11 +50,18 @@ hr {
   justify-content: center;
 }
 
-img {
+.main-image {
   width: 350px;
   height: 270px;
   border-radius: 30px;
   margin: 30px;
+}
+
+.secondary-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  margin: 15px;
 }
 
 .description-tourist-attraction {
@@ -67,4 +74,8 @@ img {
     font-size: 16px;
     color: gray;
   }
+}
+
+.tags {
+  margin: 10px;
 }

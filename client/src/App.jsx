@@ -10,19 +10,22 @@ function App() {
     const result = await axios.get(
       `http://localhost:4001/trips?keywords=${findTrip}`
     );
-    // console.log(result.data.data);
+    console.log(result.data.data);
     setTrip(result.data.data);
   };
 
-  useEffect(() => {
-    getTrips();
-  }, [findTrip]);
+  useEffect(
+    () => {
+      getTrips();
+    },
+    findTrip ? [findTrip] : []
+  );
 
   const Ttips = () => {
     if (findTrip) {
       return trip.map((data, index) => (
         <div className="detail-card" key={index}>
-          <img src={data.photos[0]} />
+          <img className="main-image" src={data.photos[0]} />
           <div className="description-tourist-attraction">
             <h3>{data.title}</h3>
             <p>
@@ -31,14 +34,24 @@ function App() {
                 : `${data.description.substring(0, 100)}...`}
             </p>
             <a href={data.url}>อ่านต่อ</a>
-            <p>หมวด : </p>
+            <p>
+              หมวด :{" "}
+              {data.tags.map((tag, tagIndex) => (
+                <span className="tags" key={tagIndex}>
+                  {tag}
+                </span>
+              ))}
+            </p>
+            <img className="secondary-image" src={data.photos[1]} />
+            <img className="secondary-image" src={data.photos[2]} />
+            <img className="secondary-image" src={data.photos[3]} />
           </div>
         </div>
       ));
     } else {
       return trip.map((data, index) => (
         <div className="detail-card" key={index}>
-          <img src={data.photos[0]} />
+          <img className="main-image" src={data.photos[0]} />
           <div className="description-tourist-attraction">
             <h3>{data.title}</h3>
             <p>
@@ -47,7 +60,17 @@ function App() {
                 : `${data.description.substring(0, 100)}...`}
             </p>
             <a href={data.url}>อ่านต่อ</a>
-            <p>หมวด : </p>
+            <p>
+              หมวด :{" "}
+              {data.tags.map((tag, tagIndex) => (
+                <span className="tags" key={tagIndex}>
+                  {tag}
+                </span>
+              ))}
+            </p>
+            <img className="secondary-image" src={data.photos[1]} />
+            <img className="secondary-image" src={data.photos[2]} />
+            <img className="secondary-image" src={data.photos[3]} />
           </div>
         </div>
       ));
