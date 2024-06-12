@@ -5,6 +5,7 @@ import axios from "axios";
 function App() {
   const [trip, setTrip] = useState([]);
   const [findTrip, setFindtrip] = useState("");
+  const [clicktag, setClicktag] = useState("");
 
   const getTrips = async () => {
     const result = await axios.get(
@@ -20,6 +21,16 @@ function App() {
     },
     findTrip ? [findTrip] : []
   );
+
+  const handleTagClick = (tag) => {
+    const newFindTrip = findTrip ? `${findTrip} ${tag}` : tag;
+    setClicktag(tag);
+    setFindtrip(newFindTrip);
+  };
+
+  const handleCopyUrl = (url) => {
+    navigator.clipboard.writeText(url);
+  };
 
   const Ttips = () => {
     if (findTrip) {
@@ -37,14 +48,24 @@ function App() {
             <p>
               หมวด :{" "}
               {data.tags.map((tag, tagIndex) => (
-                <span className="tags" key={tagIndex}>
+                <button key={tagIndex} onClick={() => handleTagClick(tag)}>
                   {tag}
-                </span>
+                </button>
               ))}
             </p>
             <img className="secondary-image" src={data.photos[1]} />
             <img className="secondary-image" src={data.photos[2]} />
             <img className="secondary-image" src={data.photos[3]} />
+            <button
+              className="copy-button"
+              onClick={() => handleCopyUrl(data.url)}
+            >
+              <img
+                className="copy-button"
+                src="./image/copy-link-svgrepo-com.png"
+                alt="Copy URL"
+              />
+            </button>
           </div>
         </div>
       ));
@@ -63,14 +84,24 @@ function App() {
             <p>
               หมวด :{" "}
               {data.tags.map((tag, tagIndex) => (
-                <span className="tags" key={tagIndex}>
+                <button key={tagIndex} onClick={() => handleTagClick(tag)}>
                   {tag}
-                </span>
+                </button>
               ))}
             </p>
             <img className="secondary-image" src={data.photos[1]} />
             <img className="secondary-image" src={data.photos[2]} />
             <img className="secondary-image" src={data.photos[3]} />
+            <button
+              onClick={() => handleCopyUrl(data.url)}
+              style={{ border: "none", background: "none" }}
+            >
+              <img
+                className="copy-button"
+                src="./image/copy-link-svgrepo-com.png"
+                alt="Copy URL"
+              />
+            </button>
           </div>
         </div>
       ));
