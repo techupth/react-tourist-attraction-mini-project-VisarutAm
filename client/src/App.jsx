@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import image001 from "./image/copy-link-svgrepo-com.png";
 
 function App() {
   const [trip, setTrip] = useState([]);
@@ -52,11 +53,14 @@ function App() {
             <img className="secondary-image" src={data.photos[1]} />
             <img className="secondary-image" src={data.photos[2]} />
             <img className="secondary-image" src={data.photos[3]} />
-            <button
+            {/* <button
               className="copy-button"
               onClick={() => handleCopyUrl(data.url)}
             >
               🔗
+            </button> */}
+            <button className="copy-button">
+              <img src={image001} alt="Copy link" />
             </button>
           </div>
         </div>
@@ -84,11 +88,14 @@ function App() {
             <img className="secondary-image" src={data.photos[1]} />
             <img className="secondary-image" src={data.photos[2]} />
             <img className="secondary-image" src={data.photos[3]} />
-            <button
+            {/* <button
               className="copy-button"
               onClick={() => handleCopyUrl(data.url)}
             >
               🔗
+            </button> */}
+            <button className="copy-button">
+              <img src={image001} alt="Copy link"></img>
             </button>
           </div>
         </div>
